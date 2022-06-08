@@ -52,6 +52,7 @@ Aggregates data into a CSV file with required metadata.
 ### Currently Included Data
 | Year | CD Thread | JSON input | CSV output | Last Update |
 |------|-----------|------------|------------|-------------|
+| 2022 | [/t/397315](https://www.chiefdelphi.com/t/2022-shirt-trading-thread/397315) | [in/shirt-sheets-2022.json](https://github.com/Boomaa23/frc-shirt-aggregator/blob/master/in/shirt-sheets-2022.json) | [out/shirts-2022.csv](https://github.com/Boomaa23/frc-shirt-aggregator/blob/master/out/shirts-2022.csv) | 06/08/2022
 | 2021 | [/t/390455](https://www.chiefdelphi.com/t/2021-shirt-trading-thread/390455/) | [in/shirt-sheets-2021.json](https://github.com/Boomaa23/frc-shirt-aggregator/blob/master/in/shirt-sheets-2021.json) | [out/shirts-2021.csv](https://github.com/Boomaa23/frc-shirt-aggregator/blob/master/out/shirts-2021.csv) | 07/24/2021
 | 2020 | [/t/371821](https://www.chiefdelphi.com/t/2020-shirt-trading-thread/371821/) | [in/shirt-sheets-2020.json](https://github.com/Boomaa23/frc-shirt-aggregator/blob/master/in/shirt-sheets-2020.json) | [out/shirts-2020.csv](https://github.com/Boomaa23/frc-shirt-aggregator/blob/master/out/shirts-2020.csv) | 07/24/2021
 | 2019 | [/t/335501](https://www.chiefdelphi.com/t/2019-shirt-trading-thread/335501/) | [in/shirt-sheets-2019.json](https://github.com/Boomaa23/frc-shirt-aggregator/blob/master/in/shirt-sheets-2019.json) | [out/shirts-2019.csv](https://github.com/Boomaa23/frc-shirt-aggregator/blob/master/out/shirts-2019.csv) | 07/24/2021

@@ -9,6 +9,7 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"strings"
 
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -44,7 +45,7 @@ func getTokenFromWeb(config *oauth2.Config) *oauth2.Token {
 	if err != nil {
 		log.Fatalf("Cannot listen for a response code: %v", err)
 	}
-	authCode := handleIncomingRequest(conn)
+	authCode := parseAuthCode(conn)
 
 	tok, err := config.Exchange(context.TODO(), authCode)
 	if err != nil {
@@ -53,16 +54,19 @@ func getTokenFromWeb(config *oauth2.Config) *oauth2.Token {
 	return tok
 }
 
-func handleIncomingRequest(conn net.Conn) string {
-	// store incoming data
+func parseAuthCode(conn net.Conn) string {
 	buffer := make([]byte, 1024)
 	_, err := conn.Read(buffer)
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	// close conn
 	conn.Close()
+
+	sbuf := string(buffer[:])
+	rawUrl := strings.Split(sbuf, "\n")[0]
+	codeMinIdx := strings.Index(rawUrl, "code=")
+	codeMaxIdx := strings.Index(rawUrl[codeMinIdx:], "&")
+	return rawUrl[codeMinIdx+5 : codeMaxIdx+codeMinIdx]
 }
 
 // Retrieves a token from a local file.
