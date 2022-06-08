@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"net"
 	"net/http"
 	"os"
 
@@ -35,16 +36,33 @@ func getTokenFromWeb(config *oauth2.Config) *oauth2.Token {
 	fmt.Printf("Go to the following link in your browser then type the "+
 		"authorization code: \n%v\n", authURL)
 
-	var authCode string
-	if _, err := fmt.Scan(&authCode); err != nil {
-		log.Fatalf("Unable to read authorization code: %v", err)
+	authListener, err := net.Listen("tcp", "localhost:5818")
+	if err != nil {
+		log.Fatalf("Unable to open token redirect socket: %v", err)
 	}
+	conn, err := authListener.Accept()
+	if err != nil {
+		log.Fatalf("Cannot listen for a response code: %v", err)
+	}
+	authCode := handleIncomingRequest(conn)
 
 	tok, err := config.Exchange(context.TODO(), authCode)
 	if err != nil {
 		log.Fatalf("Unable to retrieve token from web: %v", err)
 	}
 	return tok
+}
+
+func handleIncomingRequest(conn net.Conn) string {
+	// store incoming data
+	buffer := make([]byte, 1024)
+	_, err := conn.Read(buffer)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// close conn
+	conn.Close()
 }
 
 // Retrieves a token from a local file.
